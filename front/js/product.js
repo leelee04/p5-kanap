@@ -49,3 +49,55 @@ fetch(`http://localhost:3000/api/products/${idProduct}`)
     console.log("Message d'erreur : \n" + erreur);
     alert("Une erreur est survenue lors du chargement");
   });
+
+    
+    //Enregistrement d'un panier dans le localstorage 
+    function saveBasket(basket){
+      localStorage.setItem("basket",Json.stringfy (basket));
+    }
+    //- Récupération d'un panier dans le local
+      function getBasket(){
+        let basket = (localStorage.getItem("basket"));
+        if(basket == null){
+          return [];
+  
+        }else{
+          return Json.parse(basket);
+  
+        }
+        
+      }  
+      //- Ajout d'un produit au panier 
+      function addBasket(produit){
+        let basket = getBasket();
+        basket.push(produit);
+        saveBasket(basket);
+  
+      }
+    
+  
+  
+    //- Suppression d'un produit au panier 
+    //- Modification de la quantité d'un produit 
+    //- Calcul du total panier
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
