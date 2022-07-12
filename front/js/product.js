@@ -21,7 +21,7 @@ fetch(`http://localhost:3000/api/products/${idProduct}`)
     //etape 2
     let titleProduct = document.getElementById("title"); 
 
-    let colorProduct = document.getElementById("color");
+    let colorProduct = document.getElementById("colors");
     let imgProduct = document.querySelector(".item__img");
     let descriptionProduct = document.getElementById("description");
     let priceProduct = document.getElementById("price");
@@ -36,11 +36,16 @@ fetch(`http://localhost:3000/api/products/${idProduct}`)
 
 
     imgProduct.innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
-    for (let i = 0; i < colorProduct.length; i++) {
-      let color = document.createElement(colorProduct);
-      colorProduct.appendChild(color);
-
-
+    let tableau = product.colors;
+   
+	for (let i = 0; i < tableau.length; i++) {
+      let color = document.createElement('option');
+	  colorProduct.appendChild(color);
+	  
+	  color.textContent = tableau[i]; 
+	  
+      
+ 
 
     }
 
@@ -50,54 +55,73 @@ fetch(`http://localhost:3000/api/products/${idProduct}`)
     alert("Une erreur est survenue lors du chargement");
   });
 
-    
-    //Enregistrement d'un panier dans le localstorage 
-    function saveBasket(basket){
-      localStorage.setItem("basket",Json.stringfy (basket));
+function saveBasket(basket) {
+  localStorage.setItem("basket", Json.stringfy(basket));
+  console.log(basket);
+}
+//- Récupération d'un panier dans le local
+function getBasket() {
+  let basket = (localStorage.getItem("basket"));
+  if (basket == null) {
+    return [];
+
+  } else {
+    return Json.parse(basket);
+
+  }
+
+}
+//- Ajout d'un produit au panier 
+function addBasket(product) {
+  let basket = getBasket();
+  let productFound = basket.find(p => p.id == product.id);
+  if (productFound != undefined) {
+
+  } else {
+    product.quantity = 1;
+    basket.push(product);
+  }
+  basket.push(product);
+  saveBasket(basket);
+
+}
+/*
+//- Suppression d'un produit au panier 
+function removeFromBasket(product)
+let basket = getBasket();
+basket = basket.filter(p => p.id = product.id);
+saveBasket(basket)
+//- Modification de la quantité d'un produit 
+
+function changeqty(product, quantity) {
+  let basket = getBasket();
+  let productFound = basket.find(p = p.id == product.id);
+  if (productFound != undefined) {
+    productFound.quantity + -quantity;
+    if (productFound.quantity <= 0) {
+      removeFromBasket(productFound);
+    } else {
+      saveBasket(basket);
     }
-    //- Récupération d'un panier dans le local
-      function getBasket(){
-        let basket = (localStorage.getItem("basket"));
-        if(basket == null){
-          return [];
-  
-        }else{
-          return Json.parse(basket);
-  
-        }
-        
-      }  
-      //- Ajout d'un produit au panier 
-      function addBasket(produit){
-        let basket = getBasket();
-        basket.push(produit);
-        saveBasket(basket);
-  
-      }
-    
-  
-  
-    //- Suppression d'un produit au panier 
-    //- Modification de la quantité d'un produit 
-    //- Calcul du total panier
-  
-  
+  }
+}
 
+//- Calcul du total panier
+function getNumberProduct() {
+  let basket = getBasket();
+  let number = 0;
+  for (let product of basket) {
+    number += product.quantity;
+  }
+  return number;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function getNumberPrice() {
+  let basket = getBasket();
+  let total = 0;
+  for (let product of basket) {
+    total += product.quantity * product.price;
+  }
+  return total;
+}
+*/
