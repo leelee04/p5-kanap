@@ -48,6 +48,13 @@ fetch(`http://localhost:3000/api/products/${idProduct}`)
  
 
     }
+    let addbutton = document.getElementById("addToCart");
+
+    addbutton.addEventListener("click", function () {
+      console.log("click");
+      addBasket(product);
+    });
+
 
   })
   .catch(function (erreur) {
@@ -55,18 +62,20 @@ fetch(`http://localhost:3000/api/products/${idProduct}`)
     alert("Une erreur est survenue lors du chargement");
   });
 
+
 function saveBasket(basket) {
-  localStorage.setItem("basket", Json.stringfy(basket));
+  localStorage.setItem("basket", JSON.stringify(basket));
   console.log(basket);
 }
 //- Récupération d'un panier dans le local
 function getBasket() {
+  console.log("ouxoughfhf");
   let basket = (localStorage.getItem("basket"));
   if (basket == null) {
     return [];
 
   } else {
-    return Json.parse(basket);
+    return JSON.parse(basket);
 
   }
 
@@ -79,18 +88,21 @@ function addBasket(product) {
 
   } else {
     product.quantity = 1;
-    basket.push(product);
+    //créé un objet ou un tableau contenant l'identifiant du produit la couleur selectionner dans la liste et la quantité saisie
+    let element = 0;
+    basket.push(element);
   }
   basket.push(product);
   saveBasket(basket);
-
+//redicrection page cart.html
 }
-/*
+
 //- Suppression d'un produit au panier 
-function removeFromBasket(product)
+function removeFromBasket(product){
 let basket = getBasket();
 basket = basket.filter(p => p.id = product.id);
-saveBasket(basket)
+saveBasket(basket);
+}
 //- Modification de la quantité d'un produit 
 
 function changeqty(product, quantity) {
@@ -124,4 +136,3 @@ function getNumberPrice() {
   }
   return total;
 }
-*/
