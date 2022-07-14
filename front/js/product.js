@@ -51,8 +51,8 @@ fetch(`http://localhost:3000/api/products/${idProduct}`)
     let addbutton = document.getElementById("addToCart");
 
     addbutton.addEventListener("click", function () {
-      console.log("click");
       addBasket(product);
+
     });
 
 
@@ -69,7 +69,6 @@ function saveBasket(basket) {
 }
 //- Récupération d'un panier dans le local
 function getBasket() {
-  console.log("ouxoughfhf");
   let basket = (localStorage.getItem("basket"));
   if (basket == null) {
     return [];
@@ -87,14 +86,24 @@ function addBasket(product) {
   if (productFound != undefined) {
 
   } else {
-    product.quantity = 1;
+    product.quantity = document.getElementById("quantity").value;
+
     //créé un objet ou un tableau contenant l'identifiant du produit la couleur selectionner dans la liste et la quantité saisie
-    let element = 0;
-    basket.push(element);
+
+
+let IDproduct = idProduct;
+let COLORproduct = document.getElementById("colors").value;
+let QUproduct = product.quantity;
+console.log(IDproduct);
+console.log(COLORproduct);
+    let produit = { id :IDproduct, color:COLORproduct, quantity:QUproduct};
+    basket.push(produit);
   }
   basket.push(product);
   saveBasket(basket);
-//redicrection page cart.html
+  //redicrection page cart.html
+  //window.location.href = 'file:///C:/p5%20javascript/P5-Dev-Web-Kanap-master/front/html/cart.html';
+
 }
 
 //- Suppression d'un produit au panier 
@@ -118,21 +127,3 @@ function changeqty(product, quantity) {
   }
 }
 
-//- Calcul du total panier
-function getNumberProduct() {
-  let basket = getBasket();
-  let number = 0;
-  for (let product of basket) {
-    number += product.quantity;
-  }
-  return number;
-}
-
-function getNumberPrice() {
-  let basket = getBasket();
-  let total = 0;
-  for (let product of basket) {
-    total += product.quantity * product.price;
-  }
-  return total;
-}
