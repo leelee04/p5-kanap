@@ -82,7 +82,7 @@ function getBasket() {
 //- Ajout d'un produit au panier 
 function addBasket(product) {
   let basket = getBasket();
-  let productFound = basket.find(p => p.id == product.id);
+  let productFound = basket.find(p => p.id == product._id);
   if (productFound != undefined) {
 
   } else {
@@ -91,39 +91,23 @@ function addBasket(product) {
     //créé un objet ou un tableau contenant l'identifiant du produit la couleur selectionner dans la liste et la quantité saisie
 
 
-let IDproduct = idProduct;
-let COLORproduct = document.getElementById("colors").value;
-let QUproduct = product.quantity;
-console.log(IDproduct);
-console.log(COLORproduct);
-    let produit = { id :IDproduct, color:COLORproduct, quantity:QUproduct};
-    basket.push(produit);
-  }
-  basket.push(product);
-  saveBasket(basket);
-  //redicrection page cart.html
-  //window.location.href = 'file:///C:/p5%20javascript/P5-Dev-Web-Kanap-master/front/html/cart.html';
-
-}
-
-//- Suppression d'un produit au panier 
-function removeFromBasket(product){
-let basket = getBasket();
-basket = basket.filter(p => p.id = product.id);
-saveBasket(basket);
-}
-//- Modification de la quantité d'un produit 
-
-function changeqty(product, quantity) {
-  let basket = getBasket();
-  let productFound = basket.find(p = p.id == product.id);
-  if (productFound != undefined) {
-    productFound.quantity + -quantity;
-    if (productFound.quantity <= 0) {
-      removeFromBasket(productFound);
-    } else {
+    let idProduct = product._id;
+    let colorProduct = document.getElementById("colors").value;
+    let quantityProduct = product.quantity;
+    let priceProduct = product.price;
+    let nameproduct = product.name; 
+    let imgUrlProduct = product.imageUrl;
+    console.log(priceProduct);
+    console.log(nameproduct);
+        let produit = { id :idProduct, color:colorProduct, quantity:quantityProduct,name:nameproduct,price:priceProduct,imageurl:imgUrlProduct};
+        basket.push(produit);
+      }
+     // basket.push(product);
       saveBasket(basket);
+      //redicrection page cart.html
+      //window.location.href = "./cart.html";
+    
     }
-  }
-}
+
+
 
