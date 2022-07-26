@@ -99,7 +99,8 @@ function addBasket(product) {
     let imgUrlProduct = product.imageUrl;
     console.log(priceProduct);
     console.log(nameproduct);
-        let produit = { id :idProduct, color:colorProduct, quantity:quantityProduct,name:nameproduct,price:priceProduct,imageurl:imgUrlProduct};
+        let produit = { id :idProduct, color:colorProduct, quantity:quantityProduct};
+        console.log(produit)
         basket.push(produit);
       }
      // basket.push(product);

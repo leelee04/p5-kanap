@@ -87,15 +87,33 @@ let cart_itemDelete = document.createElement("div");
 cart_itemDelete.className= "deleteItem";
 divItem_settings.appendChild(cart_itemDelete);
 
+// fin affichage produit dans le panier
 
-        
-        //ajouter chaque élement dans son parent (element parent (class))
+//afficher le prix du panier final
+/*let quantityQ = document.getElementById('itemQuantity');
+let productQuantity = quantityQ.length;
+quantityTotal = 0;
 
+for (let j = 0; j < productQuantity; ++j) {
+        totalQuantity += quantityQ[j].valueAsNumber;
+}
 
-       
+let valeurQuantity = document.getElementById('totalQuantity'); 
+valeurQuantity.innerHTML = totalQuantity; 
+
+// affichage du prix total
+totalPrice = 0; // on fixe la prix total à 0 de base
+for (let k = 0; k < productQuantity; ++k) {
+totalPrice += (quantityQ[k].valueAsNumber * products[k].price); // on multiplie la quantité par le prix  (prix récupéré de l'api)
+}
+let productTotalPrice = document.getElementById('totalPrice');
+productTotalPrice.innerHTML = totalPrice;
+
+ // fonction pour modifier la quantité 
 
 
 }
+*/
 
 
 
@@ -104,9 +122,7 @@ divItem_settings.appendChild(cart_itemDelete);
 
 
 
-
-
-//- Suppression d'un produit au panier 
+    }//- Suppression d'un produit au panier 
 function removeFromBasket(product){
     let basket = getBasket();
     basket = basket.filter(p => p.id = product.id);
@@ -124,5 +140,3 @@ function removeFromBasket(product){
         } else {
           saveBasket(basket);
         }
-      }
-    }
