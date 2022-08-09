@@ -69,7 +69,8 @@ console.log(idproduct);
             
             let divItem_settings = document.createElement("div");
             divItem_settings.className = "cart__item__content__settings";
-            
+            cartContent_item.appendChild(divItem_settings);
+
             //on rajoute une div de cart__item__content__settings__quantity
             let divQté_item = document.createElement("div");
             divQté_item.className = "cart__item__content__settings__quantity";
@@ -83,7 +84,7 @@ console.log(idproduct);
             // dans l'input il va obtenir la quantité
             let input_qté = document.createElement("input");
             divItem_settings.appendChild(input_qté);
-            input_qté.value = productInLocalStorage[i].addQuantity; 
+            input_qté.value = productInLocalStorage[i].quantity; 
             input_qté.className = "itemQuantity";
             input_qté.setAttribute("type", "number");
             input_qté.setAttribute("min", "1");
@@ -95,17 +96,18 @@ console.log(idproduct);
             cart_itemDelete.className= "deleteItem";
             divItem_settings.appendChild(cart_itemDelete);
 
-            let divQuantity = document.createElement("div");
-            divQuantity.className = "itemQuantity";
-            divQuantity.innerHTML = product.quantity;
+            //on rajoute le lien de suppression
+            let btndelete = document.createElement("a");
+            btndelete.innerHTML = "supprimer";
+            cart_itemDelete.appendChild(btndelete);
+  
       
         })
         .catch(function (erreur) {
           console.log("Message d'erreur : \n" + erreur);
           alert("Une erreur est survenue lors du chargement");
         });
-    
-
+ 
 // fin affichage produit dans le panier
 
 //afficher le prix du panier final
@@ -114,22 +116,22 @@ console.log(idproduct);
 let productQuantity = productInLocalStorage[i].quantity;
 
 
-  let productQuantityNumber = parseInt(productQuantity,10);
+  let productQuantityNumber = parseInt(productQuantity,10); //parsint sa transforme les string en number
         totalQuantity += productQuantityNumber;
-        console.log(totalQuantity);
+
         
 
 let valeurQuantity = document.getElementById('totalQuantity'); 
 valeurQuantity.innerHTML = totalQuantity; 
-/*
-// affichage du prix total
+
+//affichage du prix total
 let totalPrice = 0; // on fixe la prix total à 0 de base
 for (let k = 0; k < productQuantity; ++k) {
 totalPrice += (quantityQ[k].valueAsNumber * productInLocalStorage[k].price); // on multiplie la quantité par le prix  (prix récupéré de l'api)
 }
 let productTotalPrice = document.getElementById('totalPrice');
 productTotalPrice.innerHTML = totalPrice;
-*/
+
  // fonction pour modifier la quantité 
  //supprimer un product
  //formulaire
