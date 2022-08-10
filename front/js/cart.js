@@ -2,6 +2,7 @@
 let productInLocalStorage = JSON.parse(localStorage.getItem("basket"));
 console.log(productInLocalStorage);
 let totalQuantity = 0;
+let totalPrice = 0; // on fixe la prix total à 0 de base
 //Affichage des éléments du panier
 for(let i = 0; i < productInLocalStorage.length; i++) {
   
@@ -100,7 +101,24 @@ console.log(idproduct);
             let btndelete = document.createElement("a");
             btndelete.innerHTML = "supprimer";
             cart_itemDelete.appendChild(btndelete);
-  
+            let productQuantity = productInLocalStorage[i].quantity;
+
+            //affichage du prix total
+            
+            
+            totalPrice += (productQuantity * product.price); 
+          
+              let productQuantityNumber = parseInt(productQuantity,10); //parsint sa transforme les string en number
+                    totalQuantity += productQuantityNumber;
+             
+            let valeurQuantity = document.getElementById('totalQuantity'); 
+            valeurQuantity.innerHTML = totalQuantity; 
+            
+            // on multiplie la quantité par le prix  (prix récupéré de l'api)
+            
+            let productTotalPrice = document.getElementById('totalPrice');
+            productTotalPrice.innerHTML = totalPrice;
+            
       
         })
         .catch(function (erreur) {
@@ -108,29 +126,8 @@ console.log(idproduct);
           alert("Une erreur est survenue lors du chargement");
         });
  
-// fin affichage produit dans le panier
-
-//afficher le prix du panier final
 
 
-let productQuantity = productInLocalStorage[i].quantity;
-
-
-  let productQuantityNumber = parseInt(productQuantity,10); //parsint sa transforme les string en number
-        totalQuantity += productQuantityNumber;
-
-        
-
-let valeurQuantity = document.getElementById('totalQuantity'); 
-valeurQuantity.innerHTML = totalQuantity; 
-
-//affichage du prix total
-let totalPrice = 0; // on fixe la prix total à 0 de base
-for (let k = 0; k < productQuantity; ++k) {
-totalPrice += (quantityQ[k].valueAsNumber * productInLocalStorage[k].price); // on multiplie la quantité par le prix  (prix récupéré de l'api)
-}
-let productTotalPrice = document.getElementById('totalPrice');
-productTotalPrice.innerHTML = totalPrice;
 
  // fonction pour modifier la quantité 
  //supprimer un product
@@ -173,6 +170,8 @@ let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2
 let villeRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
 console.log(villeRegExp);
 let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
+let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
+//charregex
 
 // Ecoute de la modification du prénom
 form.firstName.addEventListener('change', function() {
